@@ -60,5 +60,5 @@ pub extern fn murmur(input: &str, seed: u32) -> u32 {
   h1 = ((h1 & 0xffff) * 0xc2b2ae35) + ((((h1 >> 16) * 0xc2b2ae35) & 0xffff) << 16);
   h1 ^= h1 >> 16;
 
-  return h1 >> 0 as u32;
+  return h1 >> 0;
 }
