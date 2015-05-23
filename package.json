@@ -1,0 +1,28 @@
+{
+  "name": "murmur-hash-ffi",
+  "version": "0.1.0",
+  "description": "Native implementation of the non-cryptographic murmur hash using FFI",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js",
+    "install": "pushd lib && cargo build --lib --release && popd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b3nj4m/murmur-hash-ffi.git"
+  },
+  "keywords": [
+    "murmur",
+    "hash",
+    "ffi"
+  ],
+  "author": "Ben Robbins <ben.robbins@gmail.com> (https://b3nj4m.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b3nj4m/murmur-hash-ffi/issues"
+  },
+  "homepage": "https://github.com/b3nj4m/murmur-hash-ffi#readme",
+  "dependencies": {
+    "ffi": "^1.3.1"
+  }
+}

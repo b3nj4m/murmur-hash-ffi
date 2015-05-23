@@ -1,0 +1,8 @@
+[package]
+name = "murmur"
+version = "0.1.0"
+authors = ["Ben Robbins <ben.robbins@gmail.com>"]
+
+[lib]
+name = "murmur"
+crate-type = ["dylib"]
