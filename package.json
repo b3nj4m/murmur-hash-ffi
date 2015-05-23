@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test.js",
-    "install": "pushd lib && cargo build --lib --release && popd"
+    "install": "pushd lib; cargo build --lib --release; popd"
   },
   "repository": {
     "type": "git",
