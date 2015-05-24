@@ -6,3 +6,6 @@ authors = ["Ben Robbins <ben.robbins@gmail.com>"]
 [lib]
 name = "murmur"
 crate-type = ["dylib"]
+
+[dependencies]
+num = "^0.1.24"
