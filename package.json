@@ -1,6 +1,6 @@
 {
   "name": "murmur-hash-ffi",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Native implementation of the non-cryptographic murmur hash using FFI",
   "main": "index.js",
   "scripts": {
