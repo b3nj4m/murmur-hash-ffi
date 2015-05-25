@@ -1,14 +1,28 @@
-extern crate num;
+extern crate libc;
 
 use std::mem;
-use num::Signed;
+use std::ffi::CStr;
+use std::str;
+use libc::c_char;
 
 #[no_mangle]
-pub extern fn murmur(input: &str, seed: i32) -> i32 {
+pub extern fn cMurmur(cInput: *const c_char, seed: u32) -> u32 {
+  #![allow(non_snake_case)]
+  return murmur(convertCStr(&cInput), seed);
+}
+
+fn convertCStr<'a>(cInput: &'a *const c_char) -> &'a str {
+  #![allow(non_snake_case)]
+  let cStrInput: &CStr = unsafe { CStr::from_ptr(*cInput) };
+  let inputBytes = cStrInput.to_bytes();
+  return str::from_utf8(inputBytes).unwrap();
+}
+
+pub extern fn murmur(input: &str, seed: u32) -> u32 {
   #![allow(non_snake_case)]
 
-  let mut remainder = input.len() & 3;
   let inputBytes = input.as_bytes();
+  let mut remainder = inputBytes.len() & 3;
   let inputChunks = inputBytes.chunks(4);
   let mut h1: u64 = seed as u64;
   let c1: u64 = 0xcc9e2d51;
@@ -58,17 +72,26 @@ pub extern fn murmur(input: &str, seed: i32) -> i32 {
   h1 = (((h1 & 0xffff) * 0xc2b2ae35) + ((((h1 >> 16) * 0xc2b2ae35) & 0xffff) << 16)) & 0xffffffff;
   h1 ^= h1 >> 16;
 
-  return (h1 as i32).abs();
+  return h1 as u32;
 }
 
 #[cfg(test)]
 mod tests {
   #![allow(non_snake_case)]
   use super::*;
+  use std::ffi::{CStr, CString};
   
   #[test]
   fn itWorks() {
-    assert_eq!(murmur("cheese", 42), 1495267687);
-    assert_eq!(murmur("beans", 42), 869695115);
+    assert_eq!(murmur("cheese", 42), 2799699609u32);
+    assert_eq!(murmur("beans", 42), 3425272181u32);
+  }
+
+  #[test]
+  fn cItWorks() {
+    let string: &CStr = &CString::new("cheese").unwrap();
+    assert_eq!(cMurmur(string.as_ptr(), 42), 2799699609u32);
+    let string2: &CStr = &CString::new("beans").unwrap();
+    assert_eq!(cMurmur(string2.as_ptr(), 42), 3425272181u32);
   }
 }

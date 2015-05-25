@@ -8,4 +8,4 @@ name = "murmur"
 crate-type = ["dylib"]
 
 [dependencies]
-num = "^0.1.24"
+libc = "^0.1.8"
