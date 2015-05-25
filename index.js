@@ -1,6 +1,9 @@
 var ffi = require('ffi');
+var fs = require('fs');
+var Path = require('path');
 
-var murmur = ffi.Library('lib/target/release/libmurmur', {
+var path = 'lib/target/release/libmurmur';
+var murmur = ffi.Library(Path.join(__dirname, path), {
   cMurmur: ['uint32', ['string', 'uint32']]
 });
 
